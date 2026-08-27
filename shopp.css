@@ -102,29 +102,30 @@
   opacity: .7;
 }
 
-.product-card button{
+.product-card .shop-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
   width: 100%;
   padding: 11px 14px;
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   font-weight: 600;
+  font-size: .95rem;
   cursor: pointer;
   color: var(--ink);
   background: transparent;
   transition: transform .2s ease, background .25s ease, color .25s ease, border-color .25s ease;
 }
-.product-card button:hover{
+.product-card .shop-link i{ font-size: .8rem; }
+.product-card .shop-link:hover{
   transform: translateY(-2px);
   background: linear-gradient(90deg, var(--joy), var(--embarrassment));
   color: #1a1130;
   border-color: transparent;
 }
-.product-card button:active{ transform: translateY(0) scale(.98); }
-.product-card button.added{
-  background: linear-gradient(90deg, var(--disgust, #45d8a8), #b9f6de);
-  color: #0d2b22;
-  border-color: transparent;
-}
+.product-card .shop-link:active{ transform: translateY(0) scale(.98); }
 
 /* category tag palette - grouped, not randomized per card */
 .product-card.tag-apparel{ --tag-color: var(--sadness); }
@@ -132,78 +133,40 @@
 .product-card.tag-games{ --tag-color: var(--fear); }
 .product-card.tag-accessories{ --tag-color: var(--disgust); }
 
-/* ---------- social card (footer) ---------- */
-.card{
-  position: relative;
+/* ---------- social buttons (footer) ----------
+   The old flip-card slid its colored panels fully out of view on hover,
+   leaving whitesmoke icons on a near-white #e7e7e7 card - invisible.
+   Always-visible brand-colored pills fix that and work on touch too. */
+.social-row{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-btn{
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #e7e7e7;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  overflow: hidden;
-  height: 50px;
-  width: min(90vw, 200px);
-  margin: 0 auto;
+  gap: .6rem;
+  padding: 12px 22px;
   border-radius: 999px;
+  color: #fff;
+  font-weight: 600;
+  font-size: .95rem;
+  box-shadow: 0 10px 24px -10px rgba(0,0,0,.5);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s ease;
 }
+.social-btn i{ font-size: 1.15rem; }
 
-.card::before, .card::after{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  width: 50%;
-  height: 100%;
-  transition: 0.25s linear;
-  z-index: 1;
-  content: "";
+.social-btn:hover,
+.social-btn:focus-visible{
+  transform: translateY(-4px);
+  filter: brightness(1.1);
 }
+.social-btn:active{ transform: translateY(-1px) scale(.97); }
 
-.card::before{ left: 0; justify-content: flex-end; background-color: #9758e0; }
-.card::after{ right: 0; justify-content: flex-start; background-color: #9534ce; }
+.social-github{ background: #24292e; }
+.social-github:hover{ box-shadow: 0 14px 30px -10px rgba(36,41,46,.7); }
 
-.card:hover{ box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
-.card:hover span{ opacity: 0; z-index: -3; }
-.card:hover::before{ opacity: 0.5; transform: translateY(-100%); }
-.card:hover::after{ opacity: 0.5; transform: translateY(100%); }
-
-.card span{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  color: whitesmoke;
-  font-family: 'Fira Mono', monospace;
-  font-size: 22px;
-  font-weight: 700;
-  opacity: 1;
-  transition: opacity 0.25s;
-  z-index: 2;
-}
-
-.card .social-link{
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  height: 100%;
-  color: whitesmoke;
-  font-size: 24px;
-  text-decoration: none;
-  transition: 0.25s;
-}
-
-.card .social-link:hover{
-  background-color: rgba(249, 244, 255, 0.774);
-  animation: bounce_613 0.4s linear;
-}
-
-@keyframes bounce_613{
-  40%{ transform: scale(1.4); }
-  60%{ transform: scale(0.8); }
-  80%{ transform: scale(1.2); }
-  100%{ transform: scale(1); }
-}
+.social-linkedin{ background: #0a66c2; }
+.social-linkedin:hover{ box-shadow: 0 14px 30px -10px rgba(10,102,194,.7); }

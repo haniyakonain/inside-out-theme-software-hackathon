@@ -215,24 +215,6 @@ a{ color: inherit; text-decoration: none; }
   gap: 1rem;
 }
 
-.cart-pill{
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: .9rem;
-  font-weight: 600;
-}
-.cart-pill i{ color: var(--joy); }
-.cart-pill.bump{ animation: cartBump .4s var(--ease); }
-@keyframes cartBump{
-  0%{ transform: scale(1); }
-  35%{ transform: scale(1.18); }
-  100%{ transform: scale(1); }
-}
 
 .nav-toggle{
   display: none;
@@ -372,7 +354,7 @@ a{ color: inherit; text-decoration: none; }
 .btn-ghost:hover{ background: rgba(255,255,255,.14); transform: translateY(-3px); }
 
 /* ---------- ripple (click feedback on buttons) ---------- */
-.btn-magic, .btn-ghost, .product-card button, .back-to-top{
+.btn-magic, .btn-ghost, .product-card .shop-link, .back-to-top, .social-btn{
   position: relative;
   overflow: hidden;
 }
@@ -504,6 +486,41 @@ a{ color: inherit; text-decoration: none; }
 .gallery-item.anxiety{ --glow: var(--anxiety); }
 .gallery-item.embarrassment{ --glow: var(--embarrassment); }
 .gallery-item.ennui{ --glow: var(--ennui); }
+
+/* ---------- accordion mode (restores the original opening/closing
+   panel gallery - panels expand on hover, neighbours make room) ----------
+   Below this width nine slivers get too thin to read, so smaller
+   screens keep the grid above instead. */
+@media (min-width: 820px){
+  .gallery-grid{
+    display: flex;
+    align-items: stretch;
+    height: clamp(320px, 34vw, 440px);
+    gap: 8px;
+    perspective: none;
+  }
+  .gallery-item{
+    flex: 1;
+    aspect-ratio: auto;
+    min-width: 0;
+  }
+  .gallery-item img{ width: 100%; height: 100%; }
+  .gallery-item figcaption{
+    transform: translateY(0);
+    opacity: 1;
+    font-size: .8rem;
+    padding: .6rem .4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .gallery-item:hover{
+    flex: 2.6;
+    transform: none;
+    box-shadow: 0 20px 44px -18px var(--glow);
+  }
+  .gallery-item:hover img{ transform: none; }
+}
 
 /* ===================================================================
    Video
@@ -658,28 +675,8 @@ a{ color: inherit; text-decoration: none; }
 .made-by-badge{ width: 20px; height: 20px; object-fit: contain; border-radius: 50%; }
 
 /* ===================================================================
-   Toast + back to top
+   Back to top
 =================================================================== */
-.toast{
-  position: fixed;
-  left: 50%;
-  bottom: 28px;
-  transform: translate(-50%, 20px);
-  background: rgba(11,12,42,.92);
-  border: 1px solid var(--glass-border);
-  color: #fff;
-  padding: 12px 22px;
-  border-radius: 999px;
-  font-weight: 500;
-  font-size: .9rem;
-  box-shadow: 0 12px 30px -10px rgba(0,0,0,.6);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s ease, transform .3s ease;
-  z-index: 2000;
-}
-.toast.show{ opacity: 1; transform: translate(-50%, 0); }
-
 .back-to-top{
   position: fixed;
   right: 24px;
@@ -733,7 +730,6 @@ a{ color: inherit; text-decoration: none; }
   .nav-list.open{ transform: translateY(0); opacity: 1; }
   .nav-list li a{ padding: 14px 24px; border-radius: 0; text-align: center; }
 
-  .cart-pill span{ min-width: 8px; }
   .cursor-glow{ display: none; }
 }
 

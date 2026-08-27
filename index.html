@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="hi.css">
   <link rel="stylesheet" href="shopp.css">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥹</text></svg>">
 </head>
 <body>
 
@@ -35,10 +35,6 @@
       </ul>
 
       <div class="nav-actions">
-        <div class="cart-pill" title="Items in cart">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span id="cartCount">0</span>
-        </div>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -156,13 +152,12 @@
       <a href="#Footer" aria-label="Footer"><img src="images/footer.png" alt="Footer"></a>
     </nav>
 
-    <div class="card reveal">
-      <span>Social</span>
-      <a class="social-link" href="https://github.com/haniyakonain" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <i class="fa-brands fa-github"></i>
+    <div class="social-row reveal">
+      <a class="social-btn social-github" href="https://github.com/haniyakonain" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i><span>GitHub</span>
       </a>
-      <a class="social-link" href="https://linkedin.com/in/haniya-konain" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <i class="fa-brands fa-linkedin"></i>
+      <a class="social-btn social-linkedin" href="https://linkedin.com/in/haniya-konain" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span>
       </a>
     </div>
 
@@ -172,8 +167,6 @@
   <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
-
-  <div class="toast" id="toast"></div>
 
   <script src="script.js" defer></script>
   <script src="shopper.js" defer></script>

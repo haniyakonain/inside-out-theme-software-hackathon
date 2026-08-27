@@ -1,23 +1,24 @@
 /* ===================================================================
    Inside Out - DevMinds
-   Store rendering + cart, mobile nav, scroll reveal, back-to-top,
-   cursor glow, navbar scroll/active state, tilt + ripple flourishes.
+   Store rendering (real outbound shop links), mobile nav, scroll
+   reveal, back-to-top, cursor glow, navbar scroll/active state,
+   ripple flourishes, hero parallax.
 =================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ---------------- Store: products + cart ---------------- */
+  /* ---------------- Store: products (real links, no fake cart) ---------------- */
 
   const products = [
-    { name: "Emotion Mug Set",        price: 14, oldPrice: 18, rating: 4.8, tag: "drinkware",   badge: "Bestseller", imageUrl: "images/1.jpg" },
-    { name: "Mixed Emotions Game",    price: 24, rating: 4.6, tag: "games",       badge: null,          imageUrl: "images/2.jpg" },
-    { name: "Joy Icon Tee",           price: 19, rating: 4.7, tag: "apparel",     badge: "New",         imageUrl: "images/3.jpg" },
-    { name: "Great Day Tee",          price: 19, rating: 4.5, tag: "apparel",     badge: null,          imageUrl: "images/4.jpg" },
-    { name: "Disgust Icon Tee",       price: 19, rating: 4.4, tag: "apparel",     badge: null,          imageUrl: "images/5.jpg" },
-    { name: "Best Friends Tee",       price: 21, oldPrice: 26, rating: 4.9, tag: "apparel",     badge: "Bestseller", imageUrl: "images/6.jpg" },
-    { name: "Core Crew Tee",          price: 22, rating: 4.6, tag: "apparel",     badge: null,          imageUrl: "images/7.jpg" },
-    { name: "Emotion Pin Badge Set",  price: 12, rating: 4.8, tag: "accessories", badge: "New",         imageUrl: "images/8.jpg" },
-    { name: "Mind World Phone Case",  price: 16, rating: 4.3, tag: "accessories", badge: null,          imageUrl: "images/9.jpg" },
-    { name: "Emotion Phone Case Set", price: 27, oldPrice: 34, rating: 4.7, tag: "accessories", badge: null,          imageUrl: "images/10.jpg" },
+    { name: "Emotion Mug Set",        price: 14, oldPrice: 18, rating: 4.8, tag: "drinkware",   badge: "Bestseller", imageUrl: "images/1.jpg",  shopQuery: "inside out mug set" },
+    { name: "Mixed Emotions Game",    price: 24, rating: 4.6, tag: "games",       badge: null,          imageUrl: "images/2.jpg",  shopQuery: "inside out mixed emotions game" },
+    { name: "Joy Icon Tee",           price: 19, rating: 4.7, tag: "apparel",     badge: "New",         imageUrl: "images/3.jpg",  shopQuery: "inside out joy t shirt" },
+    { name: "Great Day Tee",          price: 19, rating: 4.5, tag: "apparel",     badge: null,          imageUrl: "images/4.jpg",  shopQuery: "inside out sadness t shirt" },
+    { name: "Disgust Icon Tee",       price: 19, rating: 4.4, tag: "apparel",     badge: null,          imageUrl: "images/5.jpg",  shopQuery: "inside out disgust t shirt" },
+    { name: "Best Friends Tee",       price: 21, oldPrice: 26, rating: 4.9, tag: "apparel",     badge: "Bestseller", imageUrl: "images/6.jpg",  shopQuery: "inside out characters t shirt" },
+    { name: "Core Crew Tee",          price: 22, rating: 4.6, tag: "apparel",     badge: null,          imageUrl: "images/7.jpg",  shopQuery: "inside out group t shirt" },
+    { name: "Emotion Pin Badge Set",  price: 12, rating: 4.8, tag: "accessories", badge: "New",         imageUrl: "images/8.jpg",  shopQuery: "inside out pin badge set" },
+    { name: "Mind World Phone Case",  price: 16, rating: 4.3, tag: "accessories", badge: null,          imageUrl: "images/9.jpg",  shopQuery: "inside out phone case" },
+    { name: "Emotion Phone Case Set", price: 27, oldPrice: 34, rating: 4.7, tag: "accessories", badge: null,          imageUrl: "images/10.jpg", shopQuery: "inside out phone case set" },
   ];
 
   const TAG_LABEL = {
@@ -27,47 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     accessories: "Accessories",
   };
 
-  let cartCount = 0;
-  const cartCountEl = document.getElementById("cartCount");
-  const cartPillEl = document.querySelector(".cart-pill");
-  const toastEl = document.getElementById("toast");
-  let toastTimer;
-
-  const showToast = (message) => {
-    if (!toastEl) return;
-    toastEl.textContent = message;
-    toastEl.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
-  };
-
-  const bumpCart = () => {
-    if (!cartPillEl) return;
-    cartPillEl.classList.remove("bump");
-    void cartPillEl.offsetWidth; // restart animation
-    cartPillEl.classList.add("bump");
-  };
-
-  const addToCart = (name, button) => {
-    cartCount += 1;
-    if (cartCountEl) cartCountEl.textContent = String(cartCount);
-    bumpCart();
-    showToast(`${name} added to cart`);
-
-    if (button) {
-      const original = button.textContent;
-      button.textContent = "Added ✓";
-      button.classList.add("added");
-      button.disabled = true;
-      setTimeout(() => {
-        button.textContent = original;
-        button.classList.remove("added");
-        button.disabled = false;
-      }, 900);
-    }
-  };
-
   const formatPrice = (n) => `$${n}`;
+  const shopUrl = (query) => `https://www.amazon.com/s?k=${encodeURIComponent(query)}`;
 
   const renderProducts = (list) => {
     const container = document.getElementById("products");
@@ -120,15 +82,17 @@ document.addEventListener("DOMContentLoaded", () => {
         priceRow.appendChild(was);
       }
 
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = "Add to Cart";
-      button.addEventListener("click", (e) => {
-        spawnRipple(button, e);
-        addToCart(product.name, button);
-      });
+      // Real outbound link to an actual marketplace search for this item -
+      // no simulated cart, no fake "added" state.
+      const link = document.createElement("a");
+      link.className = "shop-link";
+      link.href = shopUrl(product.shopQuery);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.innerHTML = `Shop Now <i class="fa-solid fa-arrow-up-right-from-square"></i>`;
+      link.addEventListener("click", (e) => spawnRipple(link, e));
 
-      card.append(media, name, rating, priceRow, button);
+      card.append(media, name, rating, priceRow, link);
       fragment.appendChild(card);
     });
 
@@ -151,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ripple.addEventListener("animationend", () => ripple.remove());
   }
 
-  document.querySelectorAll(".btn-magic, .btn-ghost, .back-to-top").forEach((el) => {
+  document.querySelectorAll(".btn-magic, .btn-ghost, .back-to-top, .social-btn").forEach((el) => {
     el.addEventListener("click", (e) => spawnRipple(el, e));
   });
 
@@ -288,19 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------------- Gallery tilt (desktop only) ---------------- */
-
-  if (fineHover) {
-    document.querySelectorAll(".gallery-item").forEach((item) => {
-      item.addEventListener("mousemove", (e) => {
-        const rect = item.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width - 0.5;
-        const py = (e.clientY - rect.top) / rect.height - 0.5;
-        item.style.transform = `translateY(-8px) rotateY(${px * 14}deg) rotateX(${-py * 14}deg)`;
-      });
-      item.addEventListener("mouseleave", () => {
-        item.style.transform = "";
-      });
-    });
-  }
+  // Note: the gallery no longer gets a JS mouse-tilt - it now uses the
+  // restored CSS flex "accordion" (panels widen on hover), and animating
+  // both at once looked janky, so this keeps to the one effect.
 });
