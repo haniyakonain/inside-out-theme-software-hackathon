@@ -487,40 +487,11 @@ a{ color: inherit; text-decoration: none; }
 .gallery-item.embarrassment{ --glow: var(--embarrassment); }
 .gallery-item.ennui{ --glow: var(--ennui); }
 
-/* ---------- accordion mode (restores the original opening/closing
-   panel gallery - panels expand on hover, neighbours make room) ----------
-   Below this width nine slivers get too thin to read, so smaller
-   screens keep the grid above instead. */
-@media (min-width: 820px){
-  .gallery-grid{
-    display: flex;
-    align-items: stretch;
-    height: clamp(320px, 34vw, 440px);
-    gap: 8px;
-    perspective: none;
-  }
-  .gallery-item{
-    flex: 1;
-    aspect-ratio: auto;
-    min-width: 0;
-  }
-  .gallery-item img{ width: 100%; height: 100%; }
-  .gallery-item figcaption{
-    transform: translateY(0);
-    opacity: 1;
-    font-size: .8rem;
-    padding: .6rem .4rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .gallery-item:hover{
-    flex: 2.6;
-    transform: none;
-    box-shadow: 0 20px 44px -18px var(--glow);
-  }
-  .gallery-item:hover img{ transform: none; }
-}
+/* Tried a flex "accordion" mode here (panels open on hover) matching
+   the original hackathon code, but it only worked cleanly above ~1100px -
+   between 820-1100px nine panels got too cramped to read. The grid
+   above already handles every width cleanly, so it's the only layout
+   now instead of switching between two. */
 
 /* ===================================================================
    Video
