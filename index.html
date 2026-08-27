@@ -51,10 +51,8 @@
     <section id="Home" class="hero">
       <div class="hero-orbs" aria-hidden="true">
         <span class="orb orb-joy"></span>
-        <span class="orb orb-sadness"></span>
-        <span class="orb orb-anger"></span>
         <span class="orb orb-fear"></span>
-        <span class="orb orb-disgust"></span>
+        <span class="orb orb-sadness"></span>
       </div>
 
       <div class="hero-grid">
@@ -73,9 +71,10 @@
         </div>
 
         <div class="hero-visual reveal">
-          <img src="images/inside%20out.png" alt="" class="hero-logo" aria-hidden="true">
-          <img src="images/banner.webp" alt="Inside Out banner" class="hero-banner">
-          <img src="images/poster.jpg" alt="Inside Out poster" class="hero-poster">
+          <div class="hero-frame">
+            <img src="images/banner.webp" alt="Inside Out banner" class="hero-banner">
+            <img src="images/poster.jpg" alt="Inside Out poster" class="hero-poster">
+          </div>
         </div>
       </div>
 
@@ -89,7 +88,7 @@
         <h2 class="section-title">The <span>Store</span></h2>
         <p class="section-sub">Bring a piece of Headquarters home.</p>
       </div>
-      <div class="products reveal" id="products"></div>
+      <div class="products" id="products"></div>
     </section>
 
     <section id="Gallery" class="section">
@@ -99,7 +98,7 @@
         <p class="section-sub">Five originals, four new arrivals from Inside Out 2.</p>
       </div>
 
-      <div class="gallery-grid reveal">
+      <div class="gallery-grid">
         <figure class="gallery-item joy"><img src="images/jo.png" alt="Joy" loading="lazy"><figcaption>Joy</figcaption></figure>
         <figure class="gallery-item sadness"><img src="images/sa.jpg" alt="Sadness" loading="lazy"><figcaption>Sadness</figcaption></figure>
         <figure class="gallery-item disgust"><img src="images/di.jpg" alt="Disgust" loading="lazy"><figcaption>Disgust</figcaption></figure>
@@ -132,6 +131,7 @@
 
   <footer id="Footer" class="footer">
     <div class="section-head reveal">
+      <img src="images/inside%20out.png" alt="Inside Out" class="footer-sticker">
       <h2 class="section-title light">Feel Every <span>Emotion</span></h2>
       <p class="section-sub light">Drag through the console.</p>
     </div>

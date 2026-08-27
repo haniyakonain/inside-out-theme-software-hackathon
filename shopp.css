@@ -4,74 +4,133 @@
 
 .products{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.6rem;
+  perspective: 1200px;
 }
 
 .product-card{
   position: relative;
-  padding: 1.2rem 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.1rem 1.3rem;
   border-radius: var(--radius, 18px);
-  background: var(--glass, rgba(255,255,255,.06));
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
   border: 1px solid var(--glass-border, rgba(255,255,255,.14));
   overflow: hidden;
-  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, border-color .3s ease;
-}
-
-.product-card::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--accent, var(--joy, #ffd93d)), transparent 60%);
-  opacity: 0;
-  transition: opacity .3s ease;
-  pointer-events: none;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease, border-color .35s ease;
+  will-change: transform;
 }
 
 .product-card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 24px 48px -20px rgba(0,0,0,.55);
-  border-color: var(--accent, var(--joy, #ffd93d));
+  box-shadow: 0 26px 50px -22px rgba(0,0,0,.6);
+  border-color: rgba(255,217,61,.45);
 }
-.product-card:hover::before{ opacity: .12; }
 
+.product-media{
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: #fff;
+}
 .product-card img{
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: .9rem;
+  display: block;
+  transition: transform .5s var(--ease);
+}
+.product-card:hover img{ transform: scale(1.06); }
+
+.product-tag{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #14162e;
+  background: var(--tag-color, var(--joy));
 }
 
-.product-card h2,
+.product-badge{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: #fff;
+  background: rgba(15,10,30,.72);
+  border: 1px solid rgba(255,255,255,.25);
+}
+
 .product-card h3{
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: .3rem;
 }
 
-.product-card p{
+.product-rating{
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .78rem;
   color: var(--ink-dim, #c3c6ea);
-  font-weight: 600;
+  margin-bottom: .6rem;
+}
+.product-rating .fa-star{ color: var(--joy); font-size: .72rem; }
+
+.product-price{
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
   margin-bottom: 1rem;
+  margin-top: auto;
+}
+.product-price .now{ font-weight: 700; font-size: 1.05rem; }
+.product-price .was{
+  color: var(--ink-dim, #c3c6ea);
+  text-decoration: line-through;
+  font-size: .85rem;
+  opacity: .7;
 }
 
 .product-card button{
   width: 100%;
-  padding: 10px 14px;
-  border: none;
+  padding: 11px 14px;
+  border: 1px solid var(--glass-border);
   border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
-  color: #1a1130;
-  background: linear-gradient(90deg, var(--accent, var(--joy, #ffd93d)), #fff3c0);
-  transition: transform .2s ease, filter .2s ease;
+  color: var(--ink);
+  background: transparent;
+  transition: transform .2s ease, background .25s ease, color .25s ease, border-color .25s ease;
 }
-.product-card button:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+.product-card button:hover{
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, var(--joy), var(--embarrassment));
+  color: #1a1130;
+  border-color: transparent;
+}
 .product-card button:active{ transform: translateY(0) scale(.98); }
 .product-card button.added{
   background: linear-gradient(90deg, var(--disgust, #45d8a8), #b9f6de);
+  color: #0d2b22;
+  border-color: transparent;
 }
+
+/* category tag palette — grouped, not randomized per card */
+.product-card.tag-apparel{ --tag-color: var(--sadness); }
+.product-card.tag-drinkware{ --tag-color: var(--joy); }
+.product-card.tag-games{ --tag-color: var(--fear); }
+.product-card.tag-accessories{ --tag-color: var(--disgust); }
 
 /* ---------- social card (footer) ---------- */
 .card svg{ height: 25px; }
