@@ -1,5 +1,5 @@
 /* ===================================================================
-   Inside Out — DevMinds
+   Inside Out - DevMinds
    Store rendering + cart, mobile nav, scroll reveal, back-to-top,
    cursor glow, navbar scroll/active state, tilt + ripple flourishes.
 =================================================================== */

@@ -1,5 +1,5 @@
 /* ===================================================================
-   Store — product grid + footer social card
+   Store - product grid + footer social card
 =================================================================== */
 
 .products{
@@ -126,15 +126,13 @@
   border-color: transparent;
 }
 
-/* category tag palette — grouped, not randomized per card */
+/* category tag palette - grouped, not randomized per card */
 .product-card.tag-apparel{ --tag-color: var(--sadness); }
 .product-card.tag-drinkware{ --tag-color: var(--joy); }
 .product-card.tag-games{ --tag-color: var(--fear); }
 .product-card.tag-accessories{ --tag-color: var(--disgust); }
 
 /* ---------- social card (footer) ---------- */
-.card svg{ height: 25px; }
-
 .card{
   position: relative;
   display: flex;
@@ -190,17 +188,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25%;
+  width: 50%;
   height: 100%;
   color: whitesmoke;
   font-size: 24px;
   text-decoration: none;
   transition: 0.25s;
-}
-
-.card .social-link svg{
-  text-shadow: 1px 1px rgba(31, 74, 121, 0.7);
-  transform: scale(1);
 }
 
 .card .social-link:hover{
